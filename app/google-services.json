@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668624293916",
+    "project_id": "mychatapp-d77cb",
+    "storage_bucket": "mychatapp-d77cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668624293916:android:b6fc39926eb01afd464fd9",
+        "android_client_info": {
+          "package_name": "com.nkcdev.chatapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqq1-DDrdGMb9uVy6n2gAvqB-iIooSRSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

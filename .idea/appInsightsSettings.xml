@@ -27,10 +27,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.nkcdev.chatapplication" />
+                  <option name="mobileSdkAppId" value="1:668624293916:android:b6fc39926eb01afd464fd9" />
+                  <option name="projectId" value="mychatapp-d77cb" />
+                  <option name="projectNumber" value="668624293916" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
