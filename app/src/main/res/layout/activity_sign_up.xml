@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextUsernameSignup"
+            android:id="@+id/editTextUserNameSignup"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:gravity="center"
