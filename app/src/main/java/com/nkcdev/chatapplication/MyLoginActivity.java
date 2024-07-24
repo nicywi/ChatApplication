@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MyLoginActivity extends AppCompatActivity {
 
@@ -27,6 +28,16 @@ public class MyLoginActivity extends AppCompatActivity {
     private TextView textViewForgot;
 
     FirebaseAuth auth;
+    FirebaseUser firebaseUser;
+
+    protected void onStart(){
+        super.onStart();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null){
+            Intent i = new Intent(MyLoginActivity.this, MainActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
