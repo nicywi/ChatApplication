@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ChatApplication" parent="Theme.AppCompat.DayNight">
+    <style name="Base.Theme.ChatApplication" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/dark_green</item>
+        <item name="colorAccent">@color/violet</item>
     </style>
 
     <style name="Theme.ChatApplication" parent="Base.Theme.ChatApplication" />
+
+    <style name="MainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your light theme here. -->
+         <item name="colorPrimary">@color/violet</item>
+         <item name="colorPrimaryDark">@color/dark_violet</item>
+         <item name="colorAccent">@color/green</item>
+    </style>
 </resources>

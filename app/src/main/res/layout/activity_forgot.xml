@@ -12,12 +12,12 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="80dp"
+        app:tint="@color/dark_violet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/baseline_key_24"
-        app:tint="@color/violet" />
+        app:srcCompat="@drawable/baseline_key_24" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout5"
@@ -35,6 +35,7 @@
             android:id="@+id/editTextForgot"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:gravity="center"
             android:hint="Email"
             android:inputType="textEmailAddress" />
@@ -45,8 +46,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Reset Password"
         android:backgroundTint="@color/violet"
+        android:text="Reset Password"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

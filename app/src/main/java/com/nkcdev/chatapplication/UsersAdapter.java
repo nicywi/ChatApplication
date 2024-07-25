@@ -63,7 +63,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String otherName = snapshot.child("userName").getValue().toString();
-                String imageURL = snapshot.child("iamge").getValue().toString();
+                String imageURL = snapshot.child("image").getValue().toString();
 
                 holder.textViewUsers.setText(otherName);
 
