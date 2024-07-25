@@ -53,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     Uri imageUri;
     boolean imageControl = false;
+    String image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
         else
         {
-            reference.child("Users").child(auth.getUid()).child("image").setValue("null");
+            reference.child("Users").child(auth.getUid()).child("image").setValue(image);
         }
 
         Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
@@ -162,7 +163,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.child("userName").getValue().toString();
-                String image = snapshot.child("image").getValue().toString();
+                image = snapshot.child("image").getValue().toString();
 
                 editTextUserNameProfile.setText(name);
 
