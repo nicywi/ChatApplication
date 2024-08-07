@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
@@ -25,6 +26,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.mlkit.nl.smartreply.SmartReply;
+import com.google.mlkit.nl.smartreply.SmartReplyGenerator;
+import com.google.mlkit.nl.smartreply.SmartReplySuggestion;
+import com.google.mlkit.nl.smartreply.SmartReplySuggestionResult;
+import com.google.mlkit.nl.smartreply.TextMessage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,15 +43,18 @@ public class MyChatActivity extends AppCompatActivity {
     private TextView textViewChat;
     private EditText editTextMessage;
     private FloatingActionButton fab;
-    private RecyclerView rvChat;
+    private RecyclerView rvChat, rvSmartReplies;
 
     String userName, otherName;
-
     FirebaseDatabase database;
     DatabaseReference reference;
 
     MessageAdapter adapter;
     List<ModelClass> list;
+
+    //AI - Smart Reply
+    private List<TextMessage> conversation = new ArrayList<>();
+    private SmartReplyAdapter smartReplyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,14 +95,28 @@ public class MyChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message = editTextMessage.getText().toString();
-                if (!message.equals("")) {
+//                if (!message.equals("")) {
+//                    sendMessage(message);
+//                    editTextMessage.setText("");
+//                }
+                //AI
+                if (!message.isEmpty()) {
                     sendMessage(message);
+                    addMessageToConversation(message, true);
                     editTextMessage.setText("");
+                    suggestReplies();
                 }
             }
         });
 
         getMessage();
+
+        //AI
+        rvSmartReplies = findViewById(R.id.rvSmartReplies);
+        rvSmartReplies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        smartReplyAdapter = new SmartReplyAdapter(new ArrayList<>(), this::onSmartReplyClicked);
+        rvSmartReplies.setAdapter(smartReplyAdapter);
 
     }
 
@@ -105,6 +128,10 @@ public class MyChatActivity extends AppCompatActivity {
                 list.add(modelClass);
                 adapter.notifyDataSetChanged();
                 rvChat.scrollToPosition(list.size() - 1);
+
+                // AI - Add received message to conversation
+                addMessageToConversation(modelClass.getMessage(), false);
+                suggestReplies();
             }
 
             @Override
@@ -145,5 +172,35 @@ public class MyChatActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void addMessageToConversation(String message, boolean isLocal) {
+        TextMessage textMessage = isLocal ? TextMessage.createForLocalUser(message, System.currentTimeMillis()) :
+                TextMessage.createForRemoteUser(message, System.currentTimeMillis(), "user");
+        conversation.add(textMessage);
+    }
+
+    private void suggestReplies() {
+        SmartReplyGenerator smartReply = SmartReply.getClient();
+        smartReply.suggestReplies(conversation)
+                .addOnSuccessListener(new OnSuccessListener<SmartReplySuggestionResult>() {
+                    @Override
+                    public void onSuccess(SmartReplySuggestionResult result) {
+                        if (result.getStatus() == SmartReplySuggestionResult.STATUS_SUCCESS) {
+                            List<SmartReplySuggestion> suggestions = result.getSuggestions();
+                            List<String> replies = new ArrayList<>();
+                            for (SmartReplySuggestion suggestion : suggestions) {
+                                replies.add(suggestion.getText());
+                            }
+                            smartReplyAdapter.updateReplies(replies);
+                        }
+                    }
+                });
+    }
+
+    private void onSmartReplyClicked(String reply) {
+        sendMessage(reply);
+        addMessageToConversation(reply, true);
+        suggestReplies();
     }
 }
